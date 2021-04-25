@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
+    let audio_noti = document.querySelector("#notification");
+
     let start_btn = document.querySelector("#start");
     let stop_btn = document.querySelector("#stop");
+    let reset_btn = document.querySelector("#reset");
 
     let minutes_timer = document.querySelector(".minutes_timer");
     let minutes_timer_running = false;
@@ -19,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function time_loop() {
         if (minutes == 1) {
             clearInterval(loop);
+            audio_noti.play();
             minutes = 20;
             minutes_timer.innerHTML = minutes;
             minutes_timer_running = false;
@@ -33,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function time_loop_2() {
         if (seconds == 1) {
             clearInterval(loop_2);
+            audio_noti.play();
             seconds = 20;
             seconds_timer.innerHTML = seconds;
             seconds_timer_running = false;
@@ -88,4 +93,27 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Seconds timer-on-stop: " + seconds_timer_running);
     })
     // first_loop();
+    reset_btn.addEventListener("click", () => {
+        try {
+            clearInterval(loop);
+        } catch (error) {
+            console.log("Loop not defined");
+        }
+        try {
+            clearInterval(loop_2);
+        } catch (error) {
+            console.log("Loop 2 not defined");
+        }
+        minutes = 20;
+        seconds = 20;
+        minutes_timer.innerHTML = minutes;
+        seconds_timer.innerHTML = seconds;
+
+        minutes_timer_running = false;
+        minutes_timer_ran_1_time = false;
+        minutes_timer_was_running = false;
+
+        seconds_timer_running = false;
+        seconds_timer_was_running = false;
+    })
 });
