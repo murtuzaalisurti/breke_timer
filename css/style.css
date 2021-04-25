@@ -57,6 +57,17 @@ body{
     justify-content: center;
     align-items: center;
 }
-#start, #stop{
+#start, #stop, #reset{
     margin: 2rem;
+    padding: 1rem 2rem;
+    color: aliceblue;
+    background-color: #1f3142;
+    border: 3px solid #28547e;
+    border-radius: 25px;
+    font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    transition: background-color 0.2s ease-out, border 0.2s ease-out;
+}
+#start:hover, #stop:hover, #reset:hover{
+    border-color: aliceblue;
+    background-color: #243b50;
 }
