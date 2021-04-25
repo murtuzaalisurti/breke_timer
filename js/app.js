@@ -116,4 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
         seconds_timer_running = false;
         seconds_timer_was_running = false;
     })
+
+    document.addEventListener("keydown", (e) => {
+        e.preventDefault();
+    })
 });
