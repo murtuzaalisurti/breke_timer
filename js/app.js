@@ -119,5 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.addEventListener("keydown", (e) => {
         e.preventDefault();
+        console.log(e);
+        audio_noti.pause();
     })
 });
