@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     let audio_noti = document.querySelector("#notification");
     let info = document.querySelector(".info_text");
+    let info_highlight = document.querySelector(".icon");
 
     let start_btn = document.querySelector("#start");
     let stop_btn = document.querySelector("#stop");
@@ -67,6 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         info.innerHTML = "Timer is running";
+        info_highlight.classList.add("icon-highlight");
+        info_highlight.addEventListener("transitionend", () => {
+            info_highlight.classList.remove("icon-highlight");
+        })
         // first_loop();
         console.log("Minutes timer-was-running-on-start: " + minutes_timer_was_running);
         console.log("Seconds timer-was-running-on-start: " + seconds_timer_was_running);
@@ -90,6 +95,10 @@ document.addEventListener("DOMContentLoaded", () => {
             minutes_timer_was_running = false;
         }
         info.innerHTML = "Timer is not running";
+        info_highlight.classList.add("icon-highlight");
+        info_highlight.addEventListener("transitionend", () => {
+            info_highlight.classList.remove("icon-highlight");
+        })
         console.log("Minutes timer-was-running-on-stop: " + minutes_timer_was_running);
         console.log("Seconds timer-was-running-on-stop: " + seconds_timer_was_running);
         console.log("Minutes timer-on-stop: " + minutes_timer_running);
@@ -108,6 +117,10 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Loop 2 not defined");
         }
         info.innerHTML = "Timer is not running";
+        info_highlight.classList.add("icon-highlight");
+        info_highlight.addEventListener("transitionend", () => {
+            info_highlight.classList.remove("icon-highlight");
+        })
         minutes = 20;
         seconds = 20;
         minutes_timer.innerHTML = minutes;
