@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     function first_loop() {
-        loop = setInterval(time_loop, 1000);
+        loop = setInterval(time_loop, 60000);
         info_desc_text.innerHTML = `Timer is running and it will run for ${minutes} minutes from now. After that, you will get a break of ${seconds} seconds.`;
     }
 
