@@ -125,5 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(error);
             console.log("Audio not paused.");
         }
+        audio_noti.setAttribute("muted", "true");
+        console.log(audio_noti);
     })
 });
