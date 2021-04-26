@@ -118,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     document.addEventListener("keydown", (e) => {
-        e.preventDefault();
         console.log(e);
         try {
             audio_noti.pause();
