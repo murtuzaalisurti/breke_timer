@@ -102,6 +102,7 @@ body{
     border: 2px solid #406e99;
     border-radius: 50%;
     transition: background-color 0.3s ease-out, border 0.3s ease-out;
+    position: relative;
 }
 .icon:hover{
     cursor: pointer;
@@ -110,4 +111,59 @@ body{
 .icon-highlight{
     background-color: #34526ebe;
     border: 3px solid #ffffff;
+}
+.info_desc_contain{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #3d3d3d9f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.info_desc{
+    position: relative;
+    height: 250px;
+    width: 450px;
+    background-color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.info_desc_close{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 30px;
+    width: 30px;
+    background-color: #ffffff;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+.info_desc_close:hover{
+    cursor: pointer;
+}
+.cross_line_1, .cross_line_2{
+    height: 2px;
+    width: 20px;
+    background-color: #1f3142;
+}
+.cross_line_1{
+    transform: rotateZ(45deg) translateY(1.5px);
+}
+.cross_line_2{
+    transform: rotateZ(-45deg) translateY(-1.5px);
+}
+.info_desc_text{
+    font-family:'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 0px 25px;
+}
+.none{
+    display: none;
 }

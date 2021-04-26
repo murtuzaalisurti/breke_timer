@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let audio_noti = document.querySelector("#notification");
     let info = document.querySelector(".info_text");
     let info_highlight = document.querySelector(".icon");
+    let close = document.querySelector(".info_desc_close");
+    let modal_contain = document.querySelector(".info_desc_contain");
+    let info_desc_text = document.querySelector(".info_desc_text");
 
     let start_btn = document.querySelector("#start");
     let stop_btn = document.querySelector("#stop");
@@ -20,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let seconds = 20;
     minutes_timer.innerHTML = minutes;
     seconds_timer.innerHTML = seconds;
+    info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
 
     function time_loop() {
         if (minutes == 1) {
@@ -33,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else {
             minutes_timer_running = true;
             minutes -= 1;
+            info_desc_text.innerHTML = `Timer is running and it will run for ${minutes} minutes from now. After that, you will get a break of ${seconds} seconds.`;
             minutes_timer.innerHTML = minutes;
         }
     }
@@ -48,11 +53,13 @@ document.addEventListener("DOMContentLoaded", () => {
         else {
             seconds_timer_running = true;
             seconds -= 1;
+            info_desc_text.innerHTML = `Timer is running and it will run for ${seconds} seconds from now. After that, you will get ${minutes} minutes to work.`;
             seconds_timer.innerHTML = seconds;
         }
     }
     function first_loop() {
-        loop = setInterval(time_loop, 60000);
+        loop = setInterval(time_loop, 1000);
+        info_desc_text.innerHTML = `Timer is running and it will run for ${minutes} minutes from now. After that, you will get a break of ${seconds} seconds.`;
     }
 
     start_btn.addEventListener("click", () => {
@@ -65,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             else if (seconds_timer_was_running == true){
                 loop_2 = setInterval(time_loop_2, 1000);
+                info_desc_text.innerHTML = `Timer is running and it will run for ${seconds} seconds from now. After that, you will get ${minutes} minutes to work.`;
             }
         }
         info.innerHTML = "Timer is running";
@@ -99,12 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
         info_highlight.addEventListener("transitionend", () => {
             info_highlight.classList.remove("icon-highlight");
         })
+        info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
         console.log("Minutes timer-was-running-on-stop: " + minutes_timer_was_running);
         console.log("Seconds timer-was-running-on-stop: " + seconds_timer_was_running);
         console.log("Minutes timer-on-stop: " + minutes_timer_running);
         console.log("Seconds timer-on-stop: " + seconds_timer_running);
-    })
-    // first_loop();
+    });
     reset_btn.addEventListener("click", () => {
         try {
             clearInterval(loop);
@@ -132,9 +140,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         seconds_timer_running = false;
         seconds_timer_was_running = false;
-    })
+        info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
+    });
+    close.addEventListener("click", () => {
+        modal_contain.classList.add("none");
+    });
+    info_highlight.addEventListener("click", () => {
+        modal_contain.classList.remove("none");
+    });
+    modal_contain.addEventListener("click", (e) => {
+        if(e.target.classList.contains("info_desc_contain")){
+            modal_contain.classList.add("none");
+        }
+    });
 
-    document.addEventListener("keydown", (e) => {
+    document.addEventListener("keydown", () => {
         audio_noti.setAttribute("muted", true);
     });
 });
