@@ -5,6 +5,7 @@
 }
 body{
     background-color: rgb(27, 27, 27);
+    position: relative;
 }
 .contain{
     height: 100%;
@@ -70,4 +71,39 @@ body{
 #start:hover, #stop:hover, #reset:hover{
     border-color: aliceblue;
     background-color: #243b50;
+}
+.clock-status{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: -40px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    right: 0;
+    height: 2rem;
+    width: fit-content;
+    padding: 0px 10px 0px 2px;
+    border: 2px solid #28547e;
+    border-radius: 20px;
+    background-color: #20354983;
+    color: rgba(240, 248, 255, 0.644);
+    font-size: 0.8rem;
+    font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    background-color: #203549be;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #406e99;
+    border-radius: 50%;
+    transition: background-color 0.3s ease-out;
+}
+.icon:hover{
+    cursor: pointer;
+    background-color: #34526ebe;
 }

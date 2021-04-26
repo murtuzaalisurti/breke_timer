@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     let audio_noti = document.querySelector("#notification");
+    let info = document.querySelector(".info_text");
 
     let start_btn = document.querySelector("#start");
     let stop_btn = document.querySelector("#stop");
@@ -65,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 loop_2 = setInterval(time_loop_2, 1000);
             }
         }
+        info.innerHTML = "Timer is running";
         // first_loop();
         console.log("Minutes timer-was-running-on-start: " + minutes_timer_was_running);
         console.log("Seconds timer-was-running-on-start: " + seconds_timer_was_running);
@@ -87,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
             seconds_timer_was_running = true;
             minutes_timer_was_running = false;
         }
+        info.innerHTML = "Timer is not running";
         console.log("Minutes timer-was-running-on-stop: " + minutes_timer_was_running);
         console.log("Seconds timer-was-running-on-stop: " + seconds_timer_was_running);
         console.log("Minutes timer-on-stop: " + minutes_timer_running);
@@ -104,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             console.log("Loop 2 not defined");
         }
+        info.innerHTML = "Timer is not running";
         minutes = 20;
         seconds = 20;
         minutes_timer.innerHTML = minutes;
@@ -118,14 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     document.addEventListener("keydown", (e) => {
-        console.log(e);
-        try {
-            audio_noti.pause();
-        } catch (error) {
-            console.log(error);
-            console.log("Audio not paused.");
-        }
-        audio_noti.setAttribute("muted", "true");
-        console.log(audio_noti);
-    })
+        audio_noti.setAttribute("muted", true);
+    });
 });
