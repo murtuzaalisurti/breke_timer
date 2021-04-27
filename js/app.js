@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let minutes = 20;
     let seconds = 20;
+    stop_btn.setAttribute("disabled", true);
+    // console.log(stop_btn.disabled);
     minutes_timer.innerHTML = minutes;
     seconds_timer.innerHTML = seconds;
     info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
@@ -75,12 +77,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 info_desc_text.innerHTML = `Timer is running and it will run for ${seconds} seconds from now. After that, you will get ${minutes} minutes to work.`;
             }
         }
+        start_btn.setAttribute("disabled", true);
+        stop_btn.removeAttribute("disabled");
         info.innerHTML = "Timer is running";
         info_highlight.classList.add("icon-highlight");
         info_highlight.addEventListener("transitionend", () => {
             info_highlight.classList.remove("icon-highlight");
         })
-        // first_loop();
         console.log("Minutes timer-was-running-on-start: " + minutes_timer_was_running);
         console.log("Seconds timer-was-running-on-start: " + seconds_timer_was_running);
     });
@@ -102,6 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
             seconds_timer_was_running = true;
             minutes_timer_was_running = false;
         }
+
+        start_btn.removeAttribute("disabled");
+        stop_btn.setAttribute("disabled", true);
+
         info.innerHTML = "Timer is not running";
         info_highlight.classList.add("icon-highlight");
         info_highlight.addEventListener("transitionend", () => {
@@ -124,6 +131,10 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             console.log("Loop 2 not defined");
         }
+
+        start_btn.removeAttribute("disabled");
+        stop_btn.setAttribute("disabled", true);
+        
         info.innerHTML = "Timer is not running";
         info_highlight.classList.add("icon-highlight");
         info_highlight.addEventListener("transitionend", () => {
