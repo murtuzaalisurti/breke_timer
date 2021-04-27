@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let minutes = 20;
     let seconds = 20;
     stop_btn.setAttribute("disabled", true);
-    // console.log(stop_btn.disabled);
     minutes_timer.innerHTML = minutes;
     seconds_timer.innerHTML = seconds;
     info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
@@ -39,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else {
             minutes_timer_running = true;
             minutes -= 1;
-            info_desc_text.innerHTML = `Timer is running and it will run for ${minutes} minutes from now. After that, you will get a break of ${seconds} seconds.`;
+            info_desc_text.innerHTML = `Timer is running and it will run for ${minutes} minutes from now. After that, you will get a break of ${seconds} seconds.<br><br> Basically, every 20 minutes spent using a screen, you should try to look away at something that is 20 feet away from you for a total of 20 seconds.`;
             minutes_timer.innerHTML = minutes;
         }
     }
@@ -55,31 +54,33 @@ document.addEventListener("DOMContentLoaded", () => {
         else {
             seconds_timer_running = true;
             seconds -= 1;
-            info_desc_text.innerHTML = `Timer is running and it will run for ${seconds} seconds from now. After that, you will get ${minutes} minutes to work.`;
+            info_desc_text.innerHTML = `Timer is running and it will run for ${seconds} seconds from now. After that, you will get ${minutes} minutes to work.<br><br>Basically, every 20 minutes spent using a screen, you should try to look away at something that is 20 feet away from you for a total of 20 seconds.`;
             seconds_timer.innerHTML = seconds;
         }
     }
     function first_loop() {
         loop = setInterval(time_loop, 60000);
-        info_desc_text.innerHTML = `Timer is running and it will run for ${minutes} minutes from now. After that, you will get a break of ${seconds} seconds.`;
+        info_desc_text.innerHTML = `Timer is running and it will run for ${minutes} minutes from now. After that, you will get a break of ${seconds} seconds.<br><br> Basically, every 20 minutes spent using a screen, you should try to look away at something that is 20 feet away from you for a total of 20 seconds.`;
     }
 
     start_btn.addEventListener("click", () => {
         if(minutes_timer_ran_1_time == false){
             first_loop();
             minutes_timer_ran_1_time = true;
+            minutes_timer_running = true;
         } else {
             if(minutes_timer_was_running == true){
                 first_loop();
             }
             else if (seconds_timer_was_running == true){
                 loop_2 = setInterval(time_loop_2, 1000);
-                info_desc_text.innerHTML = `Timer is running and it will run for ${seconds} seconds from now. After that, you will get ${minutes} minutes to work.`;
+                info_desc_text.innerHTML = `Timer is running and it will run for ${seconds} seconds from now. After that, you will get ${minutes} minutes to work.<br><br>Basically, every 20 minutes spent using a screen, you should try to look away at something that is 20 feet away from you for a total of 20 seconds.`;
             }
         }
         start_btn.setAttribute("disabled", true);
         stop_btn.removeAttribute("disabled");
         info.innerHTML = "Timer is running";
+        info_desc_text.innerHTML = `Timer is running and it will run for ${minutes} minutes from now. After that, you will get a break of ${seconds} seconds.<br><br> Basically, every 20 minutes spent using a screen, you should try to look away at something that is 20 feet away from you for a total of 20 seconds.`;
         info_highlight.classList.add("icon-highlight");
         info_highlight.addEventListener("transitionend", () => {
             info_highlight.classList.remove("icon-highlight");
@@ -134,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         start_btn.removeAttribute("disabled");
         stop_btn.setAttribute("disabled", true);
-        
+
         info.innerHTML = "Timer is not running";
         info_highlight.classList.add("icon-highlight");
         info_highlight.addEventListener("transitionend", () => {
