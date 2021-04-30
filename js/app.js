@@ -1,31 +1,3 @@
-function seconds_timer_loop(seconds){
-    const now = Math.floor(((new Date().getTime())/1000));
-    const then = now + seconds;
-    console.log(now, then);
-    displaySecondsLeft(seconds);
-
-    seconds_loop = setInterval(() => {
-        const seconds_left = then - Math.floor((Date.now()/1000));
-        // console.log(seconds_left);
-
-        if(seconds_left < 0){
-            clearInterval(seconds_loop);
-        }
-        else {
-            displaySecondsLeft(seconds_left);
-        }
-        // displaySecondsLeft(seconds_left);
-    }, 1000);
-}
-function displaySecondsLeft(sec){
-    let minutes_timer = document.querySelector(".minutes_timer");
-    const minutes_left = Math.floor(sec/60);
-    let seconds_timer = document.querySelector(".seconds_timer");
-    console.log(sec);
-    console.log(minutes_left);
-    seconds_timer.innerHTML = sec%60;
-    minutes_timer.innerHTML = minutes_left;
-}
 document.addEventListener("DOMContentLoaded", () => {
     let audio_noti = document.querySelector("#notification");
     let info = document.querySelector(".info_text");
@@ -235,27 +207,4 @@ document.addEventListener("DOMContentLoaded", () => {
             modal_contain.classList.add("none");
         }
     });
-
-    // let progress_bar = document.querySelector(".progress");
-    // let radius = progress_bar.getAttribute("r");
-    // let circumference = (radius * 2 * 3.14)+0.1;
-
-    // let percent_elapsed = 0;
-    // let reveal = circumference - (percent_elapsed * circumference)/100;
-
-    // progress_bar.style.strokeDasharray = `${circumference} ${circumference}`;
-    // progress_bar.style.strokeDashoffset = circumference;
-    // progress_bar.style.strokeDashoffset = reveal;
-
-    // function progressing() {
-    //     if(percent_elapsed >= 100){
-    //         clearInterval(progressing);
-    //     }
-    //     reveal = circumference - (percent_elapsed * circumference)/100;
-    //     progress_bar.style.strokeDashoffset = reveal;
-    //     console.log(percent_elapsed);
-    //     percent_elapsed += 5;
-    // }
-
-    // progressing = setInterval(progressing, 1000);
 });
