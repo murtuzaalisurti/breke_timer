@@ -1,3 +1,31 @@
+function seconds_timer_loop(seconds){
+    const now = Math.floor(((new Date().getTime())/1000));
+    const then = now + seconds;
+    console.log(now, then);
+    displaySecondsLeft(seconds);
+
+    seconds_loop = setInterval(() => {
+        const seconds_left = then - Math.floor((Date.now()/1000));
+        // console.log(seconds_left);
+
+        if(seconds_left < 0){
+            clearInterval(seconds_loop);
+        }
+        else {
+            displaySecondsLeft(seconds_left);
+        }
+        // displaySecondsLeft(seconds_left);
+    }, 1000);
+}
+function displaySecondsLeft(sec){
+    let minutes_timer = document.querySelector(".minutes_timer");
+    const minutes_left = Math.floor(sec/60);
+    let seconds_timer = document.querySelector(".seconds_timer");
+    console.log(sec);
+    console.log(minutes_left);
+    seconds_timer.innerHTML = sec%60;
+    minutes_timer.innerHTML = minutes_left;
+}
 document.addEventListener("DOMContentLoaded", () => {
     let audio_noti = document.querySelector("#notification");
     let info = document.querySelector(".info_text");
@@ -5,6 +33,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let close = document.querySelector(".info_desc_close");
     let modal_contain = document.querySelector(".info_desc_contain");
     let info_desc_text = document.querySelector(".info_desc_text");
+
+    let progress_bar = document.querySelector(".progress");
+    let radius = progress_bar.getAttribute("r");
+    let circumference = (radius * 2 * 3.14)+0.1;
+    let percent_elapsed = 0;
+    let percent_already_elapsed = 0;
+    let reveal = circumference - (percent_elapsed * circumference)/100;
+    progress_bar.style.strokeDasharray = `${circumference} ${circumference}`;
+    progress_bar.style.strokeDashoffset = reveal;
 
     let start_btn = document.querySelector("#start");
     let stop_btn = document.querySelector("#stop");
@@ -28,15 +65,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function time_loop() {
         if (minutes == 1) {
+            percent_elapsed = 100;
+            reveal = circumference - (percent_elapsed * circumference)/100;
+            progress_bar.style.strokeDashoffset = reveal;
             clearInterval(loop);
             audio_noti.play();
             minutes = 20;
+            percent_elapsed = 0;
             minutes_timer.innerHTML = minutes;
             minutes_timer_running = false;
+            percent_elapsed = 5;
             loop_2 = setInterval(time_loop_2, 1000);
         }
         else {
             minutes_timer_running = true;
+            reveal = circumference - (percent_elapsed * circumference)/100;
+            progress_bar.style.strokeDashoffset = reveal;
+            percent_elapsed += 5;
             minutes -= 1;
             info_desc_text.innerHTML = `Timer is running and it will run for ${minutes} minutes from now. After that, you will get a break of ${seconds} seconds.<br><br> Basically, every 20 minutes spent using a screen, you should try to look away at something that is 20 feet away from you for a total of 20 seconds.`;
             minutes_timer.innerHTML = minutes;
@@ -44,9 +89,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     function time_loop_2() {
         if (seconds == 1) {
+            percent_elapsed = 100;
+            reveal = circumference - (percent_elapsed * circumference)/100;
+            progress_bar.style.strokeDashoffset = reveal;
             clearInterval(loop_2);
             audio_noti.play();
             seconds = 20;
+            percent_elapsed = 0;
             seconds_timer.innerHTML = seconds;
             seconds_timer_running = false;
             first_loop();
@@ -54,12 +103,21 @@ document.addEventListener("DOMContentLoaded", () => {
         else {
             seconds_timer_running = true;
             seconds -= 1;
+            reveal = circumference - (percent_elapsed * circumference)/100;
+            progress_bar.style.strokeDashoffset = reveal;
+            percent_elapsed += 5;
             info_desc_text.innerHTML = `Timer is running and it will run for ${seconds} seconds from now. After that, you will get ${minutes} minutes to work.<br><br>Basically, every 20 minutes spent using a screen, you should try to look away at something that is 20 feet away from you for a total of 20 seconds.`;
             seconds_timer.innerHTML = seconds;
         }
     }
     function first_loop() {
-        loop = setInterval(time_loop, 60000);
+        loop = setInterval(time_loop, 1000);
+        if(percent_already_elapsed != 0){
+            percent_elapsed = percent_already_elapsed;
+            percent_already_elapsed = 0;
+        } else {
+            percent_elapsed = 5;
+        }
         info_desc_text.innerHTML = `Timer is running and it will run for ${minutes} minutes from now. After that, you will get a break of ${seconds} seconds.<br><br> Basically, every 20 minutes spent using a screen, you should try to look away at something that is 20 feet away from you for a total of 20 seconds.`;
     }
 
@@ -74,6 +132,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             else if (seconds_timer_was_running == true){
                 loop_2 = setInterval(time_loop_2, 1000);
+                if(percent_already_elapsed != 0){
+                    percent_elapsed = percent_already_elapsed;
+                    percent_already_elapsed = 0;
+                } else {
+                    percent_elapsed = 5;
+                }
                 info_desc_text.innerHTML = `Timer is running and it will run for ${seconds} seconds from now. After that, you will get ${minutes} minutes to work.<br><br>Basically, every 20 minutes spent using a screen, you should try to look away at something that is 20 feet away from you for a total of 20 seconds.`;
             }
         }
@@ -110,6 +174,8 @@ document.addEventListener("DOMContentLoaded", () => {
         start_btn.removeAttribute("disabled");
         stop_btn.setAttribute("disabled", true);
 
+        percent_already_elapsed = percent_elapsed;
+
         info.innerHTML = "Timer is not running";
         info_highlight.classList.add("icon-highlight");
         info_highlight.addEventListener("transitionend", () => {
@@ -135,6 +201,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         start_btn.removeAttribute("disabled");
         stop_btn.setAttribute("disabled", true);
+
+        percent_elapsed = 0;
+        reveal = circumference - (percent_elapsed * circumference)/100;
+        progress_bar.style.strokeDashoffset = reveal;
 
         info.innerHTML = "Timer is not running";
         info_highlight.classList.add("icon-highlight");
@@ -166,7 +236,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    document.addEventListener("keydown", () => {
-        audio_noti.setAttribute("muted", true);
-    });
+    // let progress_bar = document.querySelector(".progress");
+    // let radius = progress_bar.getAttribute("r");
+    // let circumference = (radius * 2 * 3.14)+0.1;
+
+    // let percent_elapsed = 0;
+    // let reveal = circumference - (percent_elapsed * circumference)/100;
+
+    // progress_bar.style.strokeDasharray = `${circumference} ${circumference}`;
+    // progress_bar.style.strokeDashoffset = circumference;
+    // progress_bar.style.strokeDashoffset = reveal;
+
+    // function progressing() {
+    //     if(percent_elapsed >= 100){
+    //         clearInterval(progressing);
+    //     }
+    //     reveal = circumference - (percent_elapsed * circumference)/100;
+    //     progress_bar.style.strokeDashoffset = reveal;
+    //     console.log(percent_elapsed);
+    //     percent_elapsed += 5;
+    // }
+
+    // progressing = setInterval(progressing, 1000);
 });
