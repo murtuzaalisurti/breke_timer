@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     function first_loop() {
-        loop = setInterval(time_loop, 1000);
+        loop = setInterval(time_loop, 60000);
         if(percent_already_elapsed != 0){
             percent_elapsed = percent_already_elapsed;
             percent_already_elapsed = 0;
