@@ -219,6 +219,35 @@ modal_contain.addEventListener("click", (e) => {
     }
 });
 
+const media = window.matchMedia('(max-width: 36rem)');
+
+function handle_view_change(e){
+    if(e.matches){
+        start_btn.innerHTML = '<i class="fas fa-play"></i>';
+        stop_btn.innerHTML = '<i class="fas fa-stop"></i>';
+        reset_btn.innerHTML = '<i class="fas fa-redo"></i>';
+    }
+    else {
+        start_btn.innerHTML = "Start";
+        stop_btn.innerHTML = "Stop";
+        reset_btn.innerHTML = "Reset";
+    }
+}
+media.addEventListener("change", handle_view_change);
+handle_view_change(media);
+
+// or
+
+// media.addEventListener("change", (media_view) => {
+//     console.log(media_view);
+//     if(media_view.matches) {
+//         start_btn.innerHTML = '<i class="far fa-play-circle"></i>';
+//     }
+//     else {
+//         start_btn.innerHTML = "Start";
+//     }
+// })
+
 function status() {
     console.log("Minutes timer ran already once? " + minutes_timer_ran_1_time);
     console.log("");
