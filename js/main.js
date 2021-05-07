@@ -10,7 +10,7 @@ let radius = progress_bar.getAttribute("r");
 let circumference = (radius * 2 * 3.14) + 0.1;
 let percent_elapsed = 0;
 let percent_already_elapsed;
-let percent_elapsed_how_many_times = 0;
+let percent_elapsed_how_many_times;
 let reveal = circumference - (percent_elapsed * circumference) / 100;
 progress_bar.style.strokeDasharray = `${circumference} ${circumference}`;
 progress_bar.style.strokeDashoffset = reveal;
@@ -56,6 +56,7 @@ function minuteloop(seconds_from_minutes) {
                 console.log(error);
             }
             percent_elapsed = 0;
+            percent_elapsed_how_many_times = 0;
             audio_noti.play();
             minutes_timer_running = false;
             secondloop(initial_seconds);
@@ -101,6 +102,7 @@ function secondloop(seconds) {
                 console.log(error);
             }
             percent_elapsed = 0;
+            percent_elapsed_how_many_times = 0;
             audio_noti.play();
             seconds_timer_running = false;
             minuteloop(initial_seconds_from_minutes);
@@ -108,6 +110,19 @@ function secondloop(seconds) {
         else {
             displaySeconds(seconds_left);
             percent_elapsed += (100 / seconds);
+
+            let variable_per_elapsed_how_many_times = ++percent_elapsed_how_many_times;
+
+            console.log(variable_per_elapsed_how_many_times);
+            console.log(20 - seconds_left);
+
+            if(variable_per_elapsed_how_many_times != (20 - seconds_left)){
+                percent_elapsed_how_many_times = (20 - seconds_left);
+                percent_elapsed = percent_elapsed_how_many_times * (100/20);
+                console.log(percent_elapsed);
+                console.log(percent_elapsed_how_many_times);
+            }
+
             reveal = circumference - (percent_elapsed * circumference) / 100;
             progress_bar.style.strokeDashoffset = reveal;
         }
@@ -203,6 +218,7 @@ reset_btn.addEventListener("click", () => {
     stop_btn.setAttribute("disabled", true);
 
     percent_elapsed = 0;
+    percent_elapsed_how_many_times = 0;
     reveal = circumference - (percent_elapsed * circumference) / 100;
     progress_bar.style.strokeDashoffset = reveal;
 
@@ -279,4 +295,5 @@ function status() {
     console.log("");
     console.log("Percentage of progress bar: " + percent_elapsed);
     console.log("");
+    console.log("Percentage elapsed how many times: " + percent_elapsed_how_many_times);
 }
