@@ -9,6 +9,8 @@ let progress_bar = document.querySelector(".progress");
 let radius = progress_bar.getAttribute("r");
 let circumference = (radius * 2 * 3.14) + 0.1;
 let percent_elapsed = 0;
+let percent_already_elapsed;
+let percent_elapsed_how_many_times = 0;
 let reveal = circumference - (percent_elapsed * circumference) / 100;
 progress_bar.style.strokeDasharray = `${circumference} ${circumference}`;
 progress_bar.style.strokeDashoffset = reveal;
@@ -61,8 +63,26 @@ function minuteloop(seconds_from_minutes) {
         else {
             display_minutes(seconds_left);
             percent_elapsed += (100 / seconds_from_minutes);
+            // percent_elapsed += (100/1200);
+            // console.log(percent_elapsed);
+
+            let variable_per_elapsed_how_many_times = ++percent_elapsed_how_many_times;
+
+            console.log(variable_per_elapsed_how_many_times);
+            console.log(1200 - seconds_left);
+
+            if(variable_per_elapsed_how_many_times != (1200 - seconds_left)){
+                percent_elapsed_how_many_times = (1200 - seconds_left);
+                percent_elapsed = percent_elapsed_how_many_times * (100/1200);
+                console.log(percent_elapsed);
+                console.log(percent_elapsed_how_many_times);
+            }
+            // console.log(percent_elapsed_how_many_times);
+
             reveal = circumference - (percent_elapsed * circumference) / 100;
             progress_bar.style.strokeDashoffset = reveal;
+            // percent_already_elapsed = 100 - percent_elapsed;
+            // console.log(percent_already_elapsed);
         }
     }, 1000);
 }
