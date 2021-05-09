@@ -41,6 +41,38 @@ minutes_timer.innerHTML = initial_minutes;
 seconds_timer.innerHTML = initial_seconds;
 info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
 
+// let custom_min = document.querySelector(".custom_text_minute");
+// let custom_sec = document.querySelector(".custom_text_second");
+
+// custom_min.addEventListener("keyup", () => {
+//     if(typeof custom_min.value == ""){
+//         console.log(custom_min.value);
+//         minutes_timer.innerHTML = initial_minutes;
+//         console.log(minutes_timer.innerHTML);
+//     }
+//     else {
+//         console.log(custom_min.value);
+//         initial_minutes = custom_min.value;
+//         minutes_timer.innerHTML = initial_minutes;
+//         console.log(minutes_timer.innerHTML);
+//     }
+// })
+// custom_sec.addEventListener("keyup", () => {
+//     if(typeof custom_sec.value == ""){
+//         console.log(custom_sec.value);
+//         minute_seconds_text.innerHTML = initial_seconds;
+//         console.log(minute_seconds_text.innerHTML);
+//     }
+//     else {
+//         console.log(custom_sec.value);
+//         initial_seconds = custom_sec.value;
+//         minute_seconds_text.innerHTML = initial_seconds;
+//         console.log(minute_seconds_text.innerHTML);
+//     }
+// })
+
+// let initial_seconds_from_minutes = initial_minutes * 60;
+
 function minuteloop(seconds_from_minutes) {
     const now = Math.floor(((new Date().getTime()) / 1000));
     const then = now + seconds_from_minutes;
@@ -59,6 +91,9 @@ function minuteloop(seconds_from_minutes) {
             percent_elapsed_how_many_times = 0;
             audio_noti.play();
             minutes_timer_running = false;
+            document.querySelector(".min-con").classList.add("min-transition");
+            document.querySelector(".sec-con").classList.add("sec-transition");
+            document.querySelector(".sec-text").classList.add("sec-text-transition");
             secondloop(initial_seconds);
         }
         else {
@@ -95,6 +130,9 @@ function secondloop(seconds) {
             percent_elapsed_how_many_times = 0;
             audio_noti.play();
             seconds_timer_running = false;
+            document.querySelector(".min-con").classList.remove("min-transition");
+            document.querySelector(".sec-con").classList.remove("sec-transition");
+            document.querySelector(".sec-text").classList.remove("sec-text-transition");
             minuteloop(initial_seconds_from_minutes);
         }
         else {
