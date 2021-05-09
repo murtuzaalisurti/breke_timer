@@ -41,6 +41,38 @@ minutes_timer.innerHTML = initial_minutes;
 seconds_timer.innerHTML = initial_seconds;
 info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
 
+// let custom_min = document.querySelector(".custom_text_minute");
+// let custom_sec = document.querySelector(".custom_text_second");
+
+// custom_min.addEventListener("keyup", () => {
+//     if(typeof custom_min.value == ""){
+//         console.log(custom_min.value);
+//         minutes_timer.innerHTML = initial_minutes;
+//         console.log(minutes_timer.innerHTML);
+//     }
+//     else {
+//         console.log(custom_min.value);
+//         initial_minutes = custom_min.value;
+//         minutes_timer.innerHTML = initial_minutes;
+//         console.log(minutes_timer.innerHTML);
+//     }
+// })
+// custom_sec.addEventListener("keyup", () => {
+//     if(typeof custom_sec.value == ""){
+//         console.log(custom_sec.value);
+//         minute_seconds_text.innerHTML = initial_seconds;
+//         console.log(minute_seconds_text.innerHTML);
+//     }
+//     else {
+//         console.log(custom_sec.value);
+//         initial_seconds = custom_sec.value;
+//         minute_seconds_text.innerHTML = initial_seconds;
+//         console.log(minute_seconds_text.innerHTML);
+//     }
+// })
+
+// let initial_seconds_from_minutes = initial_minutes * 60;
+
 function minuteloop(seconds_from_minutes) {
     const now = Math.floor(((new Date().getTime()) / 1000));
     const then = now + seconds_from_minutes;
@@ -63,27 +95,17 @@ function minuteloop(seconds_from_minutes) {
         }
         else {
             display_minutes(seconds_left);
-            percent_elapsed += (100 / seconds_from_minutes);
-            // percent_elapsed += (100/1200);
-            // console.log(percent_elapsed);
+            percent_elapsed += ((100 / initial_seconds_from_minutes));
 
             let variable_per_elapsed_how_many_times = ++percent_elapsed_how_many_times;
 
-            console.log(variable_per_elapsed_how_many_times);
-            console.log(1200 - seconds_left);
-
-            if(variable_per_elapsed_how_many_times != (1200 - seconds_left)){
-                percent_elapsed_how_many_times = (1200 - seconds_left);
-                percent_elapsed = percent_elapsed_how_many_times * (100/1200);
-                console.log(percent_elapsed);
-                console.log(percent_elapsed_how_many_times);
+            if (variable_per_elapsed_how_many_times != ((initial_minutes * 60) - seconds_left)) {
+                percent_elapsed_how_many_times = ((initial_minutes * 60) - seconds_left);
+                percent_elapsed = percent_elapsed_how_many_times * (100 / (initial_minutes * 60));
             }
-            // console.log(percent_elapsed_how_many_times);
 
             reveal = circumference - (percent_elapsed * circumference) / 100;
             progress_bar.style.strokeDashoffset = reveal;
-            // percent_already_elapsed = 100 - percent_elapsed;
-            // console.log(percent_already_elapsed);
         }
     }, 1000);
 }
@@ -109,18 +131,13 @@ function secondloop(seconds) {
         }
         else {
             displaySeconds(seconds_left);
-            percent_elapsed += (100 / seconds);
+            percent_elapsed += (100 / initial_seconds);
 
             let variable_per_elapsed_how_many_times = ++percent_elapsed_how_many_times;
 
-            console.log(variable_per_elapsed_how_many_times);
-            console.log(20 - seconds_left);
-
-            if(variable_per_elapsed_how_many_times != (20 - seconds_left)){
-                percent_elapsed_how_many_times = (20 - seconds_left);
-                percent_elapsed = percent_elapsed_how_many_times * (100/20);
-                console.log(percent_elapsed);
-                console.log(percent_elapsed_how_many_times);
+            if (variable_per_elapsed_how_many_times != (initial_seconds - seconds_left)) {
+                percent_elapsed_how_many_times = (initial_seconds - seconds_left);
+                percent_elapsed = percent_elapsed_how_many_times * (100 / initial_seconds);
             }
 
             reveal = circumference - (percent_elapsed * circumference) / 100;
@@ -191,7 +208,8 @@ stop_btn.addEventListener("click", () => {
     stop_btn.setAttribute("disabled", true);
 
     percent_already_elapsed = percent_elapsed;
-    elapsed_seconds_from_minutes = Number(minutes_timer.innerHTML)*60 + Number(minute_seconds_text.innerHTML);
+    elapsed_seconds_from_minutes = (Number(minutes_timer.innerHTML) * 60) + Number(minute_seconds_text.innerHTML);
+    console.log(elapsed_seconds_from_minutes);
     elapsed_seconds = Number(seconds_timer.innerHTML);
 
     info.innerHTML = "Timer is not running";
@@ -227,8 +245,6 @@ reset_btn.addEventListener("click", () => {
     info_highlight.addEventListener("transitionend", () => {
         info_highlight.classList.remove("icon-highlight");
     })
-    initial_minutes = 20;
-    initial_seconds = 20;
     minutes_timer.innerHTML = initial_minutes;
     seconds_timer.innerHTML = initial_seconds;
     document.title = `${initial_minutes} : 00`;
@@ -257,8 +273,8 @@ modal_contain.addEventListener("click", (e) => {
 
 const media = window.matchMedia('(max-width: 36rem)');
 
-function handle_view_change(e){
-    if(e.matches){
+function handle_view_change(e) {
+    if (e.matches) {
         start_btn.innerHTML = '<i class="fas fa-play"></i>';
         stop_btn.innerHTML = '<i class="fas fa-stop"></i>';
         reset_btn.innerHTML = '<i class="fas fa-redo"></i>';
@@ -293,7 +309,7 @@ function status() {
     console.log("Minutes timer running now: " + minutes_timer_running);
     console.log("Seconds timer running now: " + seconds_timer_running);
     console.log("");
-    console.log("Percentage of progress bar: " + percent_elapsed);
+    console.log("Percentage of progress bar: " + Math.round(percent_elapsed));
     console.log("");
     console.log("Percentage elapsed how many times: " + percent_elapsed_how_many_times);
 }
