@@ -50,7 +50,10 @@ body{
     flex-flow: column;
     justify-content: center;
     align-items: center;
+    transform: translateY(0px) scale(1);
+    transition: transform 0.4s;
 }
+
 .minute-display{
     display: flex;
     justify-content: center;
@@ -61,10 +64,25 @@ body{
     font-family: 'Montserrat', sans-serif;
     font-size: 0.9rem;
 }
+.sec-text{
+    transform: scale(1);
+    transition: transform 0.4s;
+}
 .minutes_timer, .separator, .minute-seconds{
     font-size: 4.8rem;
     color: white;
 }
+
+.min-transition{
+    transform: translateY(110px) scale(0.45);
+}
+.sec-transition{
+    transform: translateY(-110px) scale(2.6);
+}
+.sec-text-transition{
+    transform: scale(0.4);
+}
+
 .seconds_timer{
     color: white;
     font-size: 1.5rem;
@@ -72,8 +90,8 @@ body{
 .separator{
     display: flex;
     align-items: center;
-    font-size: 4.1rem;
     text-align: center;
+    font-size: 4.1rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .buttons{
