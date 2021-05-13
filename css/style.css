@@ -54,6 +54,9 @@ body{
     transform: translateY(0px) scale(1);
     transition: transform 0.4s;
 }
+.sec-con{
+    color: rgb(122, 122, 122);
+}
 
 .minute-display{
     display: flex;
@@ -64,8 +67,19 @@ body{
     color: rgba(255, 255, 255, 0.726);
     font-family: 'Montserrat', sans-serif;
     font-size: 0.9rem;
+    letter-spacing: 1px;
+    padding: 10px 10px 2px 10px;
+}
+.min-text{
+    border-bottom: 2px solid #28547e;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background: linear-gradient(to bottom, rgb(27, 27, 27), rgb(31, 44, 56) 70%, #28547e);
 }
 .sec-text{
+    padding-top: 5px;
+    color: rgb(122, 122, 122);
+    font-size: 0.7rem;
     transform: scale(1);
     transition: transform 0.4s;
 }
@@ -73,21 +87,36 @@ body{
     font-size: 4.8rem;
     color: white;
 }
+.seconds_timer{
+    font-size: 1.5rem;
+}
 
 .min-transition{
     transform: translateY(110px) scale(0.45);
 }
+.min-transition .min-text{
+    border: none;
+    color: rgb(122, 122, 122);
+    background: none;
+    font-size: 1.3rem;
+}
+.min-transition .minutes_timer, .min-transition .minute-seconds, .min-transition .separator{
+    color: rgb(122, 122, 122);
+}
 .sec-transition{
+    color: rgb(255, 255, 255);
     transform: translateY(-110px) scale(2.6);
 }
 .sec-text-transition{
     transform: scale(0.4);
+    color: rgb(255, 255, 255);
+    font-size: 0.9rem;
+    border-bottom: 2px solid #28547e;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background: linear-gradient(to bottom, rgb(27, 27, 27), rgb(31, 44, 56) 70%, #28547e);
 }
 
-.seconds_timer{
-    color: white;
-    font-size: 1.5rem;
-}
 .separator{
     display: flex;
     align-items: center;
@@ -108,6 +137,7 @@ body{
     border: 3px solid #28547e;
     border-radius: 25px;
     font-family: 'Dosis', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 0.9rem;
     transition: background-color 0.2s ease-out, border 0.2s ease-out;
 }
 #start:active, #stop:active, #reset:active{
