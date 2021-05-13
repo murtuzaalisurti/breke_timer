@@ -43,6 +43,7 @@ body{
     transition: stroke-dashoffset 0.4s cubic-bezier(0.21, 0.46, 0.83, 1.31);
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
+    stroke-linecap: round;
 }
 
 .min-con, .sec-con{
