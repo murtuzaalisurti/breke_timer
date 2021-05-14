@@ -82,6 +82,7 @@ save_settings.addEventListener("click", () => {
     all_custom_inputs.forEach((input) => {
         input.value = "";
     })
+    save_settings.setAttribute("disabled", true);
 })
 
 
