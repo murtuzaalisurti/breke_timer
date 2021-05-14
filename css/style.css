@@ -8,6 +8,114 @@ body{
     height: 100vh;
     position: relative;
 }
+.settings{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    color: #ffffff;
+    font-family: 'Dosis', sans-serif;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+.settings_contain{
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background-color: #243b50;
+    z-index: 2;
+}
+.close_settings{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    color: #ffffff;
+    font-size: 2rem;
+    cursor: pointer;
+}
+.settings_content{
+    position: absolute;
+    top: 12%;
+    left: 8%;
+}
+.settings_label{
+    color: #ffffff;
+    font-family: 'Dosis', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+.custom_time{
+    background-color: #1d3244;
+    border-radius: 10px;
+    padding: 20px 15px;
+}
+.work_time, .break_time{
+    display: flex;
+    
+}
+.custom_time_label{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.3rem;
+    font-family: 'Montserrat', sans-serif;
+}
+.custom_time_content{
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+.work_and_break_time_label{
+    display: flex;
+    flex-flow: column;
+    /* gap: 20px; */
+    color: #ffffff;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+}
+.work_time_label, .break_time_label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+}
+.set_work_and_break_time{
+    display: flex;
+    flex-flow: column;
+    gap: 5px;
+}
+.set_work_time{
+    color: #ffffff;
+}
+.custom_minutes, .custom_seconds{
+    color: #ffffff;
+}
+.custom_time input{
+    background-color: #15222e;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 5px;
+    width: 6rem;
+}
+.custom_time input::placeholder{
+    font-family: 'Dosis', sans-serif;
+    color: #47525c;
+}
+.save{
+    margin-top: 20px;
+    padding: 15px 35px;
+    background-color: #15222e;
+    border: 2px solid rgba(255, 255, 255, 0.726);
+    color: white;
+    font-family: 'Dosis', sans-serif;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.save:disabled{
+    background-color: #353e47;
+    color: rgb(180, 180, 180);
+    border-color: #858585;
+    pointer-events: none;
+}
 .contain{
     height: 100%;
     width: 100%;
@@ -207,9 +315,10 @@ body{
 .info_desc{
     position: relative;
     width: 450px;
-    background-color: #ffffff;
+    background-color: #d6d6d6;
     border: 1px solid transparent;
     border-radius: 10px;
+    border-left: 9px solid #406e99;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -221,7 +330,7 @@ body{
     right: 5px;
     height: 30px;
     width: 30px;
-    background-color: #ffffff;
+    background-color: #d6d6d6;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -252,7 +361,7 @@ body{
 
 @media (max-width: 36rem){
     #start, #stop, #reset{
-        margin: 1rem 0 0 0;
+        margin: 2rem 0 0 0;
         height: 60px;
         width: 60px;
         border-radius: 50%;
@@ -265,6 +374,37 @@ body{
     }
     .clock-status{
         bottom: 10%;
+    }
+    .settings{
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        transform: translate(-55%, 0%);
+        color: #ffffff;
+        font-family: 'Dosis', sans-serif;
+        font-size: 1.3rem;
+        cursor: pointer;
+    }
+    .custom_time{
+        width: 85vw;
+    }
+    .custom_time_content{
+        flex-flow: column;
+    }
+    .work_and_break_time_label{
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+    }
+    .set_work_and_break_time{
+        flex-flow: row;
+        justify-content: space-between;
+    }
+    .custom_time input{
+        width: 3.5rem;
+    }
+    .set_break_time input{
+        width: 5.5rem;
     }
 }
 @media (max-height: 40rem){
@@ -283,6 +423,9 @@ body{
         background-color: #34526ebe;
     }
     .info_desc_close:hover{
+        cursor: pointer;
+    }
+    .save:hover{
         cursor: pointer;
     }
 }
