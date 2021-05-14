@@ -4,6 +4,9 @@ let info_highlight = document.querySelector(".icon");
 let close_desc = document.querySelector(".info_desc_close");
 let modal_contain = document.querySelector(".info_desc_contain");
 let info_desc_text = document.querySelector(".info_desc_text");
+let setting_btn = document.querySelector(".settings");
+let settings_close_button = document.querySelector(".close_settings");
+let settings_container = document.querySelector(".settings_contain");
 
 let progress_bar = document.querySelector(".progress");
 let radius = progress_bar.getAttribute("r");
@@ -29,9 +32,9 @@ let seconds_timer = document.querySelector(".seconds_timer");
 let seconds_timer_running = false;
 let seconds_timer_was_running = false;
 
-let initial_minutes = 20;
-let initial_seconds_from_minutes = initial_minutes * 60;
-let initial_seconds = 20;
+var initial_minutes = 20;
+var initial_seconds_from_minutes = initial_minutes * 60;
+var initial_seconds = 20;
 
 let elapsed_seconds = 0;
 let elapsed_seconds_from_minutes = 0;
@@ -40,6 +43,47 @@ stop_btn.setAttribute("disabled", true);
 minutes_timer.innerHTML = initial_minutes;
 seconds_timer.innerHTML = initial_seconds;
 info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
+
+let custom_min_work = document.querySelector(".set_work_time .custom_minutes");
+let custom_sec_work = document.querySelector(".set_work_time .custom_seconds");
+
+let custom_sec_break = document.querySelector(".set_break_time .custom_seconds");
+
+let all_custom_inputs = document.querySelectorAll(".set_work_and_break_time input");
+
+let save_settings = document.querySelector(".save");
+save_settings.setAttribute("disabled", true);
+
+all_custom_inputs.forEach((input) => {
+    input.addEventListener("keyup", () => {
+        if (custom_min_work.value == "" || custom_sec_work.value == "" || custom_sec_break.value == "") {
+            save_settings.setAttribute("disabled", true);
+        }
+        else if(Number(custom_min_work.value) >= 60 || Number(custom_sec_work.value) >= 60 || Number(custom_sec_break.value) >= 60 || Number(custom_min_work.value) < 0 || Number(custom_sec_work.value) < 0 || Number(custom_sec_break.value) < 0){
+            save_settings.setAttribute("disabled", true);
+        } 
+        else {
+            save_settings.removeAttribute("disabled");
+        }
+    })
+})
+
+
+save_settings.addEventListener("click", () => {
+    minutes_timer.innerHTML = custom_min_work.value;
+    custom_sec_work.value == 0 ? minute_seconds_text.innerHTML = "00" : minute_seconds_text.innerHTML = custom_sec_work.value;
+    Number(custom_sec_work.value) < 10 ? minute_seconds_text.innerHTML = `0${custom_sec_work.value}` : minute_seconds_text.innerHTML = custom_sec_work.value;
+    seconds_timer.innerHTML = custom_sec_break.value;
+    initial_minutes = Number(minutes_timer.innerHTML);
+    initial_seconds_from_minutes = (initial_minutes * 60) + (Number(minute_seconds_text.innerHTML));
+    initial_seconds = Number(seconds_timer.innerHTML);
+    settings_container.classList.add("none");
+
+    all_custom_inputs.forEach((input) => {
+        input.value = "";
+    })
+})
+
 
 function minuteloop(seconds_from_minutes) {
     const now = Math.floor(((new Date().getTime()) / 1000));
@@ -70,9 +114,9 @@ function minuteloop(seconds_from_minutes) {
 
             let variable_per_elapsed_how_many_times = ++percent_elapsed_how_many_times;
 
-            if (variable_per_elapsed_how_many_times != ((initial_minutes * 60) - seconds_left)) {
-                percent_elapsed_how_many_times = ((initial_minutes * 60) - seconds_left);
-                percent_elapsed = percent_elapsed_how_many_times * (100 / (initial_minutes * 60));
+            if (variable_per_elapsed_how_many_times != ((initial_seconds_from_minutes) - seconds_left)) {
+                percent_elapsed_how_many_times = ((initial_seconds_from_minutes) - seconds_left);
+                percent_elapsed = percent_elapsed_how_many_times * (100 / (initial_seconds_from_minutes));
             }
 
             reveal = circumference - (percent_elapsed * circumference) / 100;
@@ -221,8 +265,13 @@ reset_btn.addEventListener("click", () => {
     })
     minutes_timer.innerHTML = initial_minutes;
     seconds_timer.innerHTML = initial_seconds;
-    document.title = `${initial_minutes} : 00`;
-    minute_seconds_text.innerHTML = "00";
+    initial_seconds_from_minutes - (initial_minutes*60) == 0 ? minute_seconds_text.innerHTML = "00" : minute_seconds_text.innerHTML =  initial_seconds_from_minutes - (initial_minutes*60);
+    Number(initial_seconds_from_minutes - (initial_minutes*60)) < 10 ? minute_seconds_text.innerHTML = `0${initial_seconds_from_minutes - (initial_minutes*60)}` : minute_seconds_text.innerHTML =  initial_seconds_from_minutes - (initial_minutes*60);
+    document.title = `${initial_minutes} : ${minute_seconds_text.innerHTML}`;
+
+    document.querySelector(".min-con").classList.remove("min-transition");
+    document.querySelector(".sec-con").classList.remove("sec-transition");
+    document.querySelector(".sec-text").classList.remove("sec-text-transition");
 
     minutes_timer_running = false;
     minutes_timer_ran_1_time = false;
@@ -232,6 +281,15 @@ reset_btn.addEventListener("click", () => {
     seconds_timer_was_running = false;
     info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
 });
+
+setting_btn.addEventListener("click", () => {
+    settings_container.classList.remove("none");
+    // if(minutes_timer_running || seconds_timer_running){}
+})
+
+document.querySelector(".close_settings").addEventListener("click", () => {
+    settings_container.classList.add("none");
+})
 
 close_desc.addEventListener("click", () => {
     modal_contain.classList.add("none");
@@ -252,6 +310,8 @@ function handle_view_change(e) {
         start_btn.innerHTML = '<i class="fas fa-play"></i>';
         stop_btn.innerHTML = '<i class="fas fa-stop"></i>';
         reset_btn.innerHTML = '<i class="fas fa-redo"></i>';
+        document.querySelector(".work_time_label").innerHTML = `Work Time`;
+        document.querySelector(".break_time_label").innerHTML = `Break Time`;
     }
     else {
         start_btn.innerHTML = "Start";
