@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,20 +8,54 @@
     <title>Timer</title>
     <script src="https://kit.fontawesome.com/9fa61c79aa.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
+    <div class="settings">
+        <i class="fas fa-cog"></i>&nbsp;Settings
+    </div>
+    <div class="settings_contain none">
+        <div class="close_settings">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="settings_content">
+            <div class="settings_label">
+                Settings
+            </div>
+            <div class="custom_time">
+                <div class="custom_time_label">Set custom time</div>
+                <div class="custom_time_content">
+                    <div class="work_and_break_time_label">
+                        <div class="work_time_label">Work Time :- </div>
+                        <div class="break_time_label">Break Time :- </div>
+                    </div>
+                    <div class="set_work_and_break_time">
+                        <div class="set_work_time">
+                            <input class="custom_minutes" placeholder="Minutes">&nbsp;:
+                            <input class="custom_seconds" placeholder="Seconds">
+                        </div>
+                        <div class="set_break_time">
+                            <input class="custom_seconds" placeholder="Seconds">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="save">Save</button>
+        </div>
+    </div>
     <div class="contain">
         <div class="time-contains">
             <svg id="svg">
-                <circle class="progress" r = 130 cx="138" cy="138" fill="none" stroke="#396690" stroke-width="8"></circle>
+                <circle class="progress" r=130 cx="138" cy="138" fill="none" stroke="#396690" stroke-width="8"></circle>
             </svg>
             <div class="min-con">
                 <div class="minute-display">
                     <div class="minutes_timer"></div>
                     <div class="separator">:</div>
-                    <div class="minute-seconds">00</div>    
+                    <div class="minute-seconds">00</div>
                 </div>
                 <div class="min-text">Work</div>
             </div>
@@ -29,7 +64,7 @@
                 <div class="sec-text">Break</div>
             </div>
         </div>
-        
+
         <div class="buttons">
             <button id="start">Start</button>
             <button id="stop">Stop</button>
@@ -56,4 +91,5 @@
     </div>
     <script defer src="./js/main.js"></script>
 </body>
+
 </html>
