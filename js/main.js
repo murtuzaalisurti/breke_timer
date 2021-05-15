@@ -58,22 +58,41 @@ all_custom_inputs.forEach((input) => {
     input.addEventListener("keyup", () => {
         if (custom_min_work.value == "" || custom_sec_work.value == "" || custom_sec_break.value == "") {
             save_settings.setAttribute("disabled", true);
+            document.querySelector(".custom_time").dataset.info = "All fields are required";
+            document.querySelector(".custom_time").classList.add("error_class");
         }
-        else if(Number(custom_min_work.value) >= 60 || Number(custom_sec_work.value) >= 60 || Number(custom_sec_break.value) >= 60 || Number(custom_min_work.value) < 0 || Number(custom_sec_work.value) < 0 || Number(custom_sec_break.value) < 0){
+        else if (Number(custom_min_work.value) >= 60 || Number(custom_sec_work.value) >= 60 || Number(custom_sec_break.value) >= 60 || Number(custom_min_work.value) < 0 || Number(custom_sec_work.value) < 0 || Number(custom_sec_break.value) <= 0) {
+            document.querySelector(".custom_time").classList.add("error_class");
             save_settings.setAttribute("disabled", true);
-        } 
+            if (Number(custom_sec_break.value) <= 0 || Number(custom_sec_break.value) >= 60) {
+                document.querySelector(".custom_time").dataset.info = "Break time must be from 1-59 seconds";
+                document.querySelector(".set_break_time .custom_seconds").style = "border: 2px solid #d84141";
+            }
+            if (Number(custom_min_work.value) >= 60 || Number(custom_min_work.value) < 0) {
+                document.querySelector(".custom_time").dataset.info = "Work time minutes must be from 0-59";
+                document.querySelector(".set_work_time .custom_minutes").style = "border: 2px solid #d84141";
+            }
+            if (Number(custom_sec_work.value) >= 60 || Number(custom_sec_work.value) < 0) {
+                document.querySelector(".custom_time").dataset.info = "Work time seconds must be from 0-59";
+                document.querySelector(".set_work_time .custom_seconds").style = "border: 2px solid #d84141";
+            }
+        }
         else {
             save_settings.removeAttribute("disabled");
+            document.querySelector(".custom_time").classList.remove("error_class");
+            document.querySelector(".set_break_time .custom_seconds").style = "none";
+            document.querySelector(".set_work_time .custom_minutes").style = "none";
+            document.querySelector(".set_work_time .custom_seconds").style = "none";
         }
     })
 })
 
 
 save_settings.addEventListener("click", () => {
-    minutes_timer.innerHTML = custom_min_work.value;
-    custom_sec_work.value == 0 ? minute_seconds_text.innerHTML = "00" : minute_seconds_text.innerHTML = custom_sec_work.value;
-    Number(custom_sec_work.value) < 10 ? minute_seconds_text.innerHTML = `0${custom_sec_work.value}` : minute_seconds_text.innerHTML = custom_sec_work.value;
-    seconds_timer.innerHTML = custom_sec_break.value;
+    minutes_timer.innerHTML = Number(custom_min_work.value);
+    Number(custom_sec_work.value) == 0 ? minute_seconds_text.innerHTML = "00" : minute_seconds_text.innerHTML = custom_sec_work.value;
+    Number(custom_sec_work.value) < 10 && Number(custom_sec_work.value) > 0 ? minute_seconds_text.innerHTML = `0${Number(custom_sec_work.value)}` : minute_seconds_text.innerHTML = custom_sec_work.value;
+    seconds_timer.innerHTML = Number(custom_sec_break.value);
     initial_minutes = Number(minutes_timer.innerHTML);
     initial_seconds_from_minutes = (initial_minutes * 60) + (Number(minute_seconds_text.innerHTML));
     initial_seconds = Number(seconds_timer.innerHTML);
@@ -82,7 +101,48 @@ save_settings.addEventListener("click", () => {
     all_custom_inputs.forEach((input) => {
         input.value = "";
     })
+
     save_settings.setAttribute("disabled", true);
+    document.querySelector(".custom_time").classList.remove("error_class");
+    document.querySelector(".set_break_time .custom_seconds").style = "none";
+    document.querySelector(".set_work_time .custom_minutes").style = "none";
+    document.querySelector(".set_work_time .custom_seconds").style = "none";
+
+    try {
+        clearInterval(m_interval);
+    } catch (error) {
+        console.log("");
+    }
+    try {
+        clearInterval(s_interval);
+    } catch (error) {
+        console.log("");
+    }
+
+    percent_elapsed = 0;
+    percent_elapsed_how_many_times = 0;
+    reveal = circumference - (percent_elapsed * circumference) / 100;
+    progress_bar.style.strokeDashoffset = reveal;
+
+    info.innerHTML = "Timer is not running";
+    info_highlight.classList.add("icon-highlight");
+    info_highlight.addEventListener("transitionend", () => {
+        info_highlight.classList.remove("icon-highlight");
+    })
+
+    document.title = `${initial_minutes} : ${minute_seconds_text.innerHTML}`;
+
+    document.querySelector(".min-con").classList.remove("min-transition");
+    document.querySelector(".sec-con").classList.remove("sec-transition");
+    document.querySelector(".sec-text").classList.remove("sec-text-transition");
+
+    minutes_timer_running = false;
+    minutes_timer_ran_1_time = false;
+    minutes_timer_was_running = false;
+
+    seconds_timer_running = false;
+    seconds_timer_was_running = false;
+    info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
 })
 
 
@@ -266,8 +326,8 @@ reset_btn.addEventListener("click", () => {
     })
     minutes_timer.innerHTML = initial_minutes;
     seconds_timer.innerHTML = initial_seconds;
-    initial_seconds_from_minutes - (initial_minutes*60) == 0 ? minute_seconds_text.innerHTML = "00" : minute_seconds_text.innerHTML =  initial_seconds_from_minutes - (initial_minutes*60);
-    Number(initial_seconds_from_minutes - (initial_minutes*60)) < 10 ? minute_seconds_text.innerHTML = `0${initial_seconds_from_minutes - (initial_minutes*60)}` : minute_seconds_text.innerHTML =  initial_seconds_from_minutes - (initial_minutes*60);
+    initial_seconds_from_minutes - (initial_minutes * 60) == 0 ? minute_seconds_text.innerHTML = "00" : minute_seconds_text.innerHTML = initial_seconds_from_minutes - (initial_minutes * 60);
+    Number(initial_seconds_from_minutes - (initial_minutes * 60)) < 10 ? minute_seconds_text.innerHTML = `0${initial_seconds_from_minutes - (initial_minutes * 60)}` : minute_seconds_text.innerHTML = initial_seconds_from_minutes - (initial_minutes * 60);
     document.title = `${initial_minutes} : ${minute_seconds_text.innerHTML}`;
 
     document.querySelector(".min-con").classList.remove("min-transition");
@@ -285,11 +345,27 @@ reset_btn.addEventListener("click", () => {
 
 setting_btn.addEventListener("click", () => {
     settings_container.classList.remove("none");
-    // if(minutes_timer_running || seconds_timer_running){}
+    if(minutes_timer_running || seconds_timer_running){
+        document.querySelector(".custom_time").classList.add("error_class");
+        document.querySelector(".custom_time").dataset.info = "Stop timer and then change settings.";
+        document.querySelector(".custom_time").style = "pointer-events: none";
+    }
+    else{
+        document.querySelector(".custom_time").style = "none";
+    }
 })
 
 document.querySelector(".close_settings").addEventListener("click", () => {
     settings_container.classList.add("none");
+    all_custom_inputs.forEach((input) => {
+        input.value = "";
+    })
+
+    save_settings.setAttribute("disabled", true);
+    document.querySelector(".custom_time").classList.remove("error_class");
+    document.querySelector(".set_break_time .custom_seconds").style = "none";
+    document.querySelector(".set_work_time .custom_minutes").style = "none";
+    document.querySelector(".set_work_time .custom_seconds").style = "none";
 })
 
 close_desc.addEventListener("click", () => {
