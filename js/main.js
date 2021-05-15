@@ -60,6 +60,15 @@ all_custom_inputs.forEach((input) => {
             save_settings.setAttribute("disabled", true);
             document.querySelector(".custom_time").dataset.info = "All fields are required";
             document.querySelector(".custom_time").classList.add("error_class");
+            if(custom_min_work.value == ""){
+                document.querySelector(".set_work_time .custom_minutes").style = "none";
+            }
+            if(custom_sec_work.value == ""){
+                document.querySelector(".set_work_time .custom_seconds").style = "none";
+            }
+            if(custom_sec_break.value == ""){
+                document.querySelector(".set_break_time .custom_seconds").style = "none";
+            }
         }
         else if (Number(custom_min_work.value) >= 60 || Number(custom_sec_work.value) >= 60 || Number(custom_sec_break.value) >= 60 || Number(custom_min_work.value) < 0 || Number(custom_sec_work.value) < 0 || Number(custom_sec_break.value) <= 0) {
             document.querySelector(".custom_time").classList.add("error_class");
