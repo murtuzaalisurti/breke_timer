@@ -47,6 +47,7 @@ body{
     background-color: #1d3244;
     border-radius: 10px;
     padding: 20px 15px;
+    position: relative;
 }
 .work_time, .break_time{
     display: flex;
@@ -97,10 +98,33 @@ body{
 }
 .custom_time input::placeholder{
     font-family: 'Dosis', sans-serif;
-    color: #47525c;
+    color: #5a6672;
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number]{
+    appearance: textfield;
+}
+.error_class::before{
+    content: attr(data-info);
+    font-size: var(--error-font-size);
+    position: absolute;
+    top: 105%;
+    bottom: -2.3rem;
+    left: 0;
+    right: 0;
+    border: 2px solid #d84141;
+    border-radius: 20px;
+    padding: 0.1rem 0.5rem;
+    color: #ffcdcd;
+    background-color: #15222e;
+    background-color: #2e1515;
 }
 .save{
-    margin-top: 20px;
+    margin-top: 50px;
     padding: 15px 35px;
     background-color: #15222e;
     border: 2px solid rgba(255, 255, 255, 0.726);
