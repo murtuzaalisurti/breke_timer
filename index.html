@@ -25,8 +25,8 @@
             <div class="settings_label">
                 Settings
             </div>
-            <div class="custom_time">
-                <div class="custom_time_label">Set custom time</div>
+            <div class="custom_time" data-info="error" style="--error-font-size: 0.9rem">
+                <div class="custom_time_label">Custom Time</div>
                 <div class="custom_time_content">
                     <div class="work_and_break_time_label">
                         <div class="work_time_label">Work Time :- </div>
@@ -34,11 +34,11 @@
                     </div>
                     <div class="set_work_and_break_time">
                         <div class="set_work_time">
-                            <input class="custom_minutes" placeholder="Minutes">&nbsp;:
-                            <input class="custom_seconds" placeholder="Seconds">
+                            <input type="number" class="custom_minutes" placeholder="Minutes">&nbsp;:
+                            <input type="number" class="custom_seconds" placeholder="Seconds">
                         </div>
                         <div class="set_break_time">
-                            <input class="custom_seconds" placeholder="Seconds">
+                            <input type="number" class="custom_seconds" placeholder="Seconds">
                         </div>
                     </div>
                 </div>
