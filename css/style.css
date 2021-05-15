@@ -51,7 +51,6 @@ body{
 }
 .work_time, .break_time{
     display: flex;
-    
 }
 .custom_time_label{
     color: #ffffff;
@@ -67,7 +66,6 @@ body{
 .work_and_break_time_label{
     display: flex;
     flex-flow: column;
-    /* gap: 20px; */
     color: #ffffff;
     font-size: 1rem;
     font-family: 'Montserrat', sans-serif;
@@ -111,6 +109,7 @@ input[type=number]{
 .error_class::before{
     content: attr(data-info);
     font-size: var(--error-font-size);
+    font-family: 'Dosis', sans-serif;
     position: absolute;
     top: 105%;
     bottom: -2.3rem;
@@ -125,11 +124,12 @@ input[type=number]{
 }
 .save{
     margin-top: 50px;
-    padding: 15px 35px;
+    padding: 1rem 2rem;
     background-color: #15222e;
     border: 2px solid rgba(255, 255, 255, 0.726);
     color: white;
     font-family: 'Dosis', sans-serif;
+    font-size: 1rem;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s;
