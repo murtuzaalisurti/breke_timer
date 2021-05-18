@@ -3,8 +3,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+:root{
+    --primary-color: rgb(20, 22, 27);
+}
 body{
-    background-color: rgb(27, 27, 27);
+    background-color: var(--primary-color);
     height: 100vh;
     position: relative;
 }
@@ -206,7 +209,7 @@ input[type=number]{
     border-bottom: 2px solid #28547e;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
-    background: linear-gradient(to bottom, rgb(27, 27, 27), rgb(31, 44, 56) 70%, #28547e);
+    background: linear-gradient(to bottom, rgb(20, 22, 27), rgb(23, 29, 36) 70%, #28547e);
 }
 .sec-text{
     padding-top: 5px;
@@ -246,7 +249,7 @@ input[type=number]{
     border-bottom: 2px solid #28547e;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
-    background: linear-gradient(to bottom, rgb(27, 27, 27), rgb(31, 44, 56) 70%, #28547e);
+    background: linear-gradient(to bottom, rgb(20, 22, 27), rgb(23, 29, 36) 70%, #28547e);
 }
 
 .separator{
@@ -331,7 +334,8 @@ input[type=number]{
     bottom: 0;
     height: 100vh;
     width: 100vw;
-    background-color: #3d3d3d9f;
+    background-color: #27323f9f;
+    backdrop-filter: blur(3px);
     display: flex;
     justify-content: center;
     align-items: center;
