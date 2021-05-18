@@ -1,7 +1,7 @@
 # breke_timer
 A timer which allows you to follow 20-20-20 rule.
 
-<img src="assets/timer_mobile.jpg" height="330">&nbsp;&nbsp;<img src="assets/timer_dp.jpg" width="450">
+<img src="assets/Screenshot (520).png" height="330">&nbsp;&nbsp;<img src="assets/Screenshot (518).png" width="450">
 
 ---
 
