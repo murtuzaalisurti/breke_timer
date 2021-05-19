@@ -274,12 +274,34 @@ input[type=number]{
     font-family: 'Dosis', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 0.9rem;
     transition: background-color 0.2s ease-out, border 0.2s ease-out;
+    position: relative;
+    overflow: hidden;
 }
-#start:active, #stop:active, #reset:active{
+.ripple_circle{
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.363);
+    opacity: 1;
+    transform: scale(0);
+    animation-name: click_animation;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in;
+}
+@keyframes click_animation {
+    from{
+        opacity: 1;
+        transform: scale(0);
+    }
+    to{
+        opacity: 0;
+        transform: scale(3);
+    }
+}
+/* #start:active, #stop:active, #reset:active{
     border-color: aliceblue;
     background-color: #243b50;
     cursor: pointer;
-}
+} */
 #start:disabled, #stop:disabled{
     color: rgb(136, 136, 136);
     background-color: #353e47;
