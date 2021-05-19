@@ -297,11 +297,7 @@ input[type=number]{
         transform: scale(3);
     }
 }
-/* #start:active, #stop:active, #reset:active{
-    border-color: aliceblue;
-    background-color: #243b50;
-    cursor: pointer;
-} */
+
 #start:disabled, #stop:disabled{
     color: rgb(136, 136, 136);
     background-color: #353e47;
@@ -464,7 +460,6 @@ input[type=number]{
 }
 @media (hover:hover) {
     #start:hover, #stop:hover, #reset:hover{
-        border-color: aliceblue;
         background-color: #243b50;
         cursor: pointer;
     }
