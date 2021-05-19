@@ -60,30 +60,39 @@ all_custom_inputs.forEach((input) => {
             save_settings.setAttribute("disabled", true);
             document.querySelector(".custom_time").dataset.info = "All fields are required";
             document.querySelector(".custom_time").classList.add("error_class");
-            if(custom_min_work.value == ""){
+            if (custom_min_work.value == "") {
                 document.querySelector(".set_work_time .custom_minutes").style = "none";
             }
-            if(custom_sec_work.value == ""){
+            if (custom_sec_work.value == "") {
                 document.querySelector(".set_work_time .custom_seconds").style = "none";
             }
-            if(custom_sec_break.value == ""){
+            if (custom_sec_break.value == "") {
                 document.querySelector(".set_break_time .custom_seconds").style = "none";
             }
         }
         else if (Number(custom_min_work.value) >= 60 || Number(custom_sec_work.value) >= 60 || Number(custom_sec_break.value) >= 60 || Number(custom_min_work.value) < 0 || Number(custom_sec_work.value) < 0 || Number(custom_sec_break.value) <= 0) {
             document.querySelector(".custom_time").classList.add("error_class");
             save_settings.setAttribute("disabled", true);
-            if (Number(custom_sec_break.value) <= 0 || Number(custom_sec_break.value) >= 60) {
+            if ((Number(custom_sec_break.value) <= 0 || Number(custom_sec_break.value) >= 60) && (Number(custom_min_work.value) < 60 || Number(custom_min_work.value) >= 0) && (Number(custom_sec_work.value) < 60 || Number(custom_sec_work.value) >= 0)) {
                 document.querySelector(".custom_time").dataset.info = "Break time must be from 1-59 seconds";
                 document.querySelector(".set_break_time .custom_seconds").style = "border: 2px solid #d84141";
+                document.querySelector(".set_work_time .custom_minutes").style = "none";
+                document.querySelector(".set_work_time .custom_seconds").style = "none";
             }
-            if (Number(custom_min_work.value) >= 60 || Number(custom_min_work.value) < 0) {
+            if ((Number(custom_min_work.value) >= 60 || Number(custom_min_work.value) < 0) && (Number(custom_sec_break.value) > 0 || Number(custom_sec_break.value) < 60) && (Number(custom_sec_work.value) < 60 || Number(custom_sec_work.value) >= 0)) {
                 document.querySelector(".custom_time").dataset.info = "Work time minutes must be from 0-59";
                 document.querySelector(".set_work_time .custom_minutes").style = "border: 2px solid #d84141";
+                document.querySelector(".set_break_time .custom_seconds").style = "none";
+                document.querySelector(".set_work_time .custom_seconds").style = "none";
             }
-            if (Number(custom_sec_work.value) >= 60 || Number(custom_sec_work.value) < 0) {
+            if ((Number(custom_sec_work.value) >= 60 || Number(custom_sec_work.value) < 0) && (Number(custom_sec_break.value) > 0 || Number(custom_sec_break.value) < 60) && (Number(custom_min_work.value) < 60 || Number(custom_min_work.value) >= 0)) {
                 document.querySelector(".custom_time").dataset.info = "Work time seconds must be from 0-59";
                 document.querySelector(".set_work_time .custom_seconds").style = "border: 2px solid #d84141";
+                document.querySelector(".set_break_time .custom_seconds").style = "none";
+                document.querySelector(".set_work_time .custom_minutes").style = "none";
+            }
+            if (Number(custom_min_work.value) == 0 && Number(custom_sec_work.value) == 0) {
+                document.querySelector(".custom_time").dataset.info = "Enter valid work time.";
             }
         }
         else {
@@ -99,17 +108,17 @@ all_custom_inputs.forEach((input) => {
 
 save_settings.addEventListener("click", () => {
     minutes_timer.innerHTML = Number(custom_min_work.value);
-    Number(custom_sec_work.value) == 0 ? minute_seconds_text.innerHTML = "00" : minute_seconds_text.innerHTML = custom_sec_work.value;
-    Number(custom_sec_work.value) < 10 && Number(custom_sec_work.value) > 0 ? minute_seconds_text.innerHTML = `0${Number(custom_sec_work.value)}` : minute_seconds_text.innerHTML = custom_sec_work.value;
+    Number(custom_sec_work.value) < 10 && Number(custom_sec_work.value) >= 0 ? minute_seconds_text.innerHTML = `0${Number(custom_sec_work.value)}` : minute_seconds_text.innerHTML = custom_sec_work.value;
     seconds_timer.innerHTML = Number(custom_sec_break.value);
     initial_minutes = Number(minutes_timer.innerHTML);
     initial_seconds_from_minutes = (initial_minutes * 60) + (Number(minute_seconds_text.innerHTML));
     initial_seconds = Number(seconds_timer.innerHTML);
-    settings_container.classList.add("none");
 
     all_custom_inputs.forEach((input) => {
         input.value = "";
     })
+
+    save_settings.innerHTML = `<i class="far fa-check-circle"></i>&nbsp;&nbsp;Saved Successfully`;
 
     save_settings.setAttribute("disabled", true);
     document.querySelector(".custom_time").classList.remove("error_class");
@@ -250,7 +259,7 @@ function display_minutes(minute_seconds) {
     info_desc_text.innerHTML = `Timer is running and it will run for ${minutes_left + 1} minutes from now. After that, you will get a break of ${initial_seconds} seconds.<br><br> Basically, every 20 minutes spent using a screen, you should try to look away at something that is 20 feet away from you for a total of 20 seconds.`;
 }
 
-start_btn.addEventListener("click", () => {
+start_btn.addEventListener("click", (e) => {
     if (minutes_timer_ran_1_time == false) {
         minuteloop(initial_seconds_from_minutes);
         minutes_timer_ran_1_time = true;
@@ -273,9 +282,11 @@ start_btn.addEventListener("click", () => {
     info_highlight.addEventListener("transitionend", () => {
         info_highlight.classList.remove("icon-highlight");
     })
+    let element_type = "controls";
+    ripple_effect(e, element_type);
 })
 
-stop_btn.addEventListener("click", () => {
+stop_btn.addEventListener("click", (e) => {
     clearInterval(m_interval);
     try {
         clearInterval(s_interval);
@@ -306,9 +317,11 @@ stop_btn.addEventListener("click", () => {
         info_highlight.classList.remove("icon-highlight");
     })
     info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
+    let element_type = "controls";
+    ripple_effect(e, element_type);
 })
 
-reset_btn.addEventListener("click", () => {
+reset_btn.addEventListener("click", (e) => {
     try {
         clearInterval(m_interval);
     } catch (error) {
@@ -350,16 +363,18 @@ reset_btn.addEventListener("click", () => {
     seconds_timer_running = false;
     seconds_timer_was_running = false;
     info_desc_text.innerHTML = "Timer is not running. Start the timer by clicking on the start button.";
+    let element_type = "controls";
+    ripple_effect(e, element_type);
 });
 
 setting_btn.addEventListener("click", () => {
     settings_container.classList.remove("none");
-    if(minutes_timer_running || seconds_timer_running){
+    if (minutes_timer_running || seconds_timer_running) {
         document.querySelector(".custom_time").classList.add("error_class");
         document.querySelector(".custom_time").dataset.info = "Stop timer and then change settings.";
         document.querySelector(".custom_time").style = "pointer-events: none";
     }
-    else{
+    else {
         document.querySelector(".custom_time").style = "none";
     }
 })
@@ -371,6 +386,7 @@ document.querySelector(".close_settings").addEventListener("click", () => {
     })
 
     save_settings.setAttribute("disabled", true);
+    save_settings.innerHTML = "Save";
     document.querySelector(".custom_time").classList.remove("error_class");
     document.querySelector(".set_break_time .custom_seconds").style = "none";
     document.querySelector(".set_work_time .custom_minutes").style = "none";
@@ -419,6 +435,59 @@ handle_view_change(media);
 //         start_btn.innerHTML = "Start";
 //     }
 // })
+
+function ripple_effect(e, element_type) {
+    const current_location = e.currentTarget;
+    let radius;
+    let diameter;
+    console.log(current_location);
+
+    console.log(current_location.clientHeight, current_location.clientWidth);
+    if (current_location.clientHeight > current_location.clientWidth) {
+        diameter = (current_location.clientHeight);
+        radius = diameter / 2;
+    }
+    if (current_location.clientHeight < current_location.clientWidth) {
+        diameter = (current_location.clientWidth);
+        radius = diameter / 2;
+    }
+    if(current_location.clientHeight == current_location.clientWidth){
+        diameter = (current_location.clientWidth);
+        radius = diameter / 2;
+    }
+    const ripple_circle = document.createElement("span");
+    console.log(`Radius => ${radius}\nDiameter => ${diameter}`);
+
+    console.log(`The current postion of the cursor from: \nTop of the viewport => ${e.clientY}, \nLeft of the viewport => ${e.clientX}`);
+
+    console.log(`The current postion of the button from: \nTop of the viewport => ${current_location.offsetTop}, \nLeft of the viewport => ${current_location.offsetLeft}`);
+
+    console.log(`Positon of ripple: \nLeft => ${e.clientX - current_location.offsetLeft - radius}\nTop => ${e.clientY - current_location.offsetTop - radius}`);
+
+    ripple_circle.style.top = `${e.clientY - current_location.offsetTop - radius}px`;
+    ripple_circle.style.left = `${e.clientX - current_location.offsetLeft - radius}px`;
+    ripple_circle.style.height = `${diameter}px`;
+    ripple_circle.style.width = `${diameter}px`;
+
+    ripple_circle.classList.add("ripple_circle");
+    if (element_type == "controls") {
+        let button_last_child = current_location.children.length - 1;
+
+        if (current_location.children.length == 1) {
+            console.log(current_location.children[0].tagName);
+            if (current_location.children[0].tagName == "SPAN") {
+                console.log(current_location.children[0].tagName);
+                current_location.removeChild(current_location.children.item(0));
+            }
+        }
+        if (current_location.children.length == 2) {
+            current_location.removeChild(current_location.children.item(button_last_child));
+        }
+    }
+
+    current_location.appendChild(ripple_circle);
+    console.log(current_location.children.length);
+}
 
 function status() {
     console.log("Minutes timer ran already once? " + minutes_timer_ran_1_time);
