@@ -40,6 +40,24 @@ body{
     top: 12%;
     left: 8%;
 }
+.settings_contain_animate{
+    opacity: 0;
+    transform: translateX(-50%);
+    animation-name: slide_from_left;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: both;
+}
+@keyframes slide_from_left {
+    from{
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 .settings_label{
     color: #ffffff;
     font-family: 'Dosis', sans-serif;
@@ -370,6 +388,24 @@ input[type=number]{
     align-items: center;
     margin: 0 10%;
 }
+.info_desc_animate .info_desc{
+    opacity: 0;
+    transform: translateY(20px);
+    animation-name: slide_up;
+    animation-duration: 0.2s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-in;
+}
+@keyframes slide_up {
+    from{
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 .info_desc_close{
     position: absolute;
     top: 5px;
@@ -460,6 +496,7 @@ input[type=number]{
 }
 @media (hover:hover) {
     #start:hover, #stop:hover, #reset:hover{
+        /* border-color: aliceblue; */
         background-color: #243b50;
         cursor: pointer;
     }
