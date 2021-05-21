@@ -369,6 +369,7 @@ reset_btn.addEventListener("click", (e) => {
 
 setting_btn.addEventListener("click", () => {
     settings_container.classList.remove("none");
+    settings_container.classList.add("settings_contain_animate");
     if (minutes_timer_running || seconds_timer_running) {
         document.querySelector(".custom_time").classList.add("error_class");
         document.querySelector(".custom_time").dataset.info = "Stop timer and then change settings.";
@@ -381,6 +382,7 @@ setting_btn.addEventListener("click", () => {
 
 document.querySelector(".close_settings").addEventListener("click", () => {
     settings_container.classList.add("none");
+    settings_container.classList.remove("settings_contain_animate");
     all_custom_inputs.forEach((input) => {
         input.value = "";
     })
@@ -395,13 +397,16 @@ document.querySelector(".close_settings").addEventListener("click", () => {
 
 close_desc.addEventListener("click", () => {
     modal_contain.classList.add("none");
+    modal_contain.classList.remove("info_desc_animate");
 });
 info_highlight.addEventListener("click", () => {
     modal_contain.classList.remove("none");
+    modal_contain.classList.add("info_desc_animate");
 });
 modal_contain.addEventListener("click", (e) => {
     if (e.target.classList.contains("info_desc_contain")) {
         modal_contain.classList.add("none");
+        modal_contain.classList.remove("info_desc_animate");
     }
 });
 
