@@ -467,6 +467,12 @@ input[type=number]{
         font-size: 1.3rem;
         cursor: pointer;
     }
+    .close_settings{
+        left: 8%;
+    }
+    .settings_content{
+        top: 18%;
+    }
     .custom_time{
         width: 85vw;
     }
@@ -496,7 +502,6 @@ input[type=number]{
 }
 @media (hover:hover) {
     #start:hover, #stop:hover, #reset:hover{
-        /* border-color: aliceblue; */
         background-color: #243b50;
         cursor: pointer;
     }
