@@ -91,9 +91,56 @@ all_custom_inputs.forEach((input) => {
                 document.querySelector(".set_break_time .custom_seconds").style = "none";
                 document.querySelector(".set_work_time .custom_minutes").style = "none";
             }
-            if (Number(custom_min_work.value) == 0 && Number(custom_sec_work.value) == 0) {
-                document.querySelector(".custom_time").dataset.info = "Enter valid work time.";
+            if((Number(custom_sec_break.value) <= 0 || Number(custom_sec_break.value) >= 60) && (Number(custom_min_work.value) >= 60 || Number(custom_min_work.value) < 0) && (Number(custom_sec_break.value) > 0 || Number(custom_sec_break.value) < 60)){
+                custom_min_work.addEventListener("focus", () => {
+                    document.querySelector(".custom_time").dataset.info = "Work time minutes must be from 0-59";
+                })
+                custom_sec_break.addEventListener("focus", () => {
+                    document.querySelector(".custom_time").dataset.info = "Break time must be from 1-59 seconds";
+                })
+                document.querySelector(".set_work_time .custom_seconds").style = "none";
+                document.querySelector(".set_break_time .custom_seconds").style = "border: 2px solid #d84141";
+                document.querySelector(".set_work_time .custom_minutes").style = "border: 2px solid #d84141";
             }
+            if((Number(custom_min_work.value) >= 60 || Number(custom_min_work.value) < 0) && (Number(custom_sec_work.value) >= 60 || Number(custom_sec_work.value) < 0) && (Number(custom_sec_break.value) > 0 || Number(custom_sec_break.value) < 60)){
+                custom_min_work.addEventListener("focus", () => {
+                    document.querySelector(".custom_time").dataset.info = "Work time minutes must be from 0-59";
+                })
+                custom_sec_work.addEventListener("focus", () => {
+                    document.querySelector(".custom_time").dataset.info = "Work time seconds must be from 0-59";
+                })
+                document.querySelector(".set_work_time .custom_seconds").style = "border: 2px solid #d84141";
+                document.querySelector(".set_break_time .custom_seconds").style = "none";
+                document.querySelector(".set_work_time .custom_minutes").style = "border: 2px solid #d84141";
+            }
+            if((Number(custom_sec_break.value) <= 0 || Number(custom_sec_break.value) >= 60) && (Number(custom_sec_work.value) >= 60 || Number(custom_sec_work.value) < 0) && (Number(custom_min_work.value) < 60 || Number(custom_min_work.value) >= 0)){
+                custom_sec_break.addEventListener("focus", () => {
+                    document.querySelector(".custom_time").dataset.info = "Break time must be from 1-59 seconds";
+                })
+                custom_sec_work.addEventListener("focus", () => {
+                    document.querySelector(".custom_time").dataset.info = "Work time seconds must be from 0-59";
+                })
+                document.querySelector(".set_work_time .custom_seconds").style = "border: 2px solid #d84141";
+                document.querySelector(".set_break_time .custom_seconds").style = "border: 2px solid #d84141";
+                document.querySelector(".set_work_time .custom_minutes").style = "none";
+            }
+            if((Number(custom_sec_break.value) <= 0 || Number(custom_sec_break.value) >= 60) && (Number(custom_min_work.value) >= 60 || Number(custom_min_work.value) < 0) && (Number(custom_sec_work.value) >= 60 || Number(custom_sec_work.value) < 0)){
+                custom_sec_break.addEventListener("focus", () => {
+                    document.querySelector(".custom_time").dataset.info = "Break time must be from 1-59 seconds";
+                })
+                custom_sec_work.addEventListener("focus", () => {
+                    document.querySelector(".custom_time").dataset.info = "Work time seconds must be from 0-59";
+                })
+                custom_min_work.addEventListener("focus", () => {
+                    document.querySelector(".custom_time").dataset.info = "Work time minutes must be from 0-59";
+                })
+                document.querySelector(".set_work_time .custom_seconds").style = "border: 2px solid #d84141";
+                document.querySelector(".set_break_time .custom_seconds").style = "border: 2px solid #d84141";
+                document.querySelector(".set_work_time .custom_minutes").style = "border: 2px solid #d84141";
+            }
+            // if (Number(custom_min_work.value) == 0 && Number(custom_sec_work.value) == 0) {
+            //     document.querySelector(".custom_time").dataset.info = "Enter valid work time.";
+            // }
         }
         else {
             save_settings.removeAttribute("disabled");
