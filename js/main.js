@@ -56,6 +56,7 @@ save_settings.setAttribute("disabled", true);
 
 all_custom_inputs.forEach((input) => {
     input.addEventListener("keyup", () => {
+        save_settings.innerHTML = `Save`;
         if (custom_min_work.value == "" || custom_sec_work.value == "" || custom_sec_break.value == "") {
             save_settings.setAttribute("disabled", true);
             document.querySelector(".custom_time").dataset.info = "All fields are required";
@@ -138,9 +139,6 @@ all_custom_inputs.forEach((input) => {
                 document.querySelector(".set_break_time .custom_seconds").style = "border: 2px solid #d84141";
                 document.querySelector(".set_work_time .custom_minutes").style = "border: 2px solid #d84141";
             }
-            // if (Number(custom_min_work.value) == 0 && Number(custom_sec_work.value) == 0) {
-            //     document.querySelector(".custom_time").dataset.info = "Enter valid work time.";
-            // }
         }
         else {
             save_settings.removeAttribute("disabled");
