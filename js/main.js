@@ -15,7 +15,7 @@ let percent_elapsed = 0;
 let percent_already_elapsed;
 let percent_elapsed_how_many_times;
 let reveal = circumference - (percent_elapsed * circumference) / 100;
-progress_bar.style.strokeDasharray = `${circumference} ${circumference}`;
+progress_bar.style.strokeDasharray = `${circumference} ${circumference + 0.5}`;
 progress_bar.style.strokeDashoffset = reveal;
 
 let start_btn = document.querySelector("#start");
